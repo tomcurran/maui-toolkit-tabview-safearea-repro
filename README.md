@@ -11,6 +11,14 @@ The page background is red, so red shows wherever nothing covers the screen. The
 |---|---|
 | ![iPhone](screenshots/iphone-17.png) | ![iPad](screenshots/ipad-pro-11.png) |
 
+## With the fix
+
+With the fix proposed for [syncfusion/maui-toolkit#429](https://github.com/syncfusion/maui-toolkit/issues/429), the left column reaches the bottom edge too:
+
+| iPhone 17 (iOS 26.5) | iPad Pro 11-inch (M4) (iPadOS 26.5) |
+|---|---|
+| ![iPhone, fixed](screenshots/fixed-iphone-17.png) | ![iPad, fixed](screenshots/fixed-ipad-pro-11.png) |
+
 ## Run it
 
 ```
