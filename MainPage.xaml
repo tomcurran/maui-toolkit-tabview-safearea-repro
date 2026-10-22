@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    The page is red, so red shows wherever nothing covers the screen.
+    The root Grid leaves the bottom edge to its content (.NET 10 SafeAreaEdges), so both
+    columns' green content and white bars should reach the bottom of the screen.
+    Left: the content inside SfTabView. Right: the same content placed directly in the page.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tabView="clr-namespace:Syncfusion.Maui.Toolkit.TabView;assembly=Syncfusion.Maui.Toolkit"
+             x:Class="TabViewSafeAreaRepro.MainPage"
+             SafeAreaEdges="None"
+             BackgroundColor="Red">
+    <ContentPage.Resources>
+        <!-- A bottom bar that pads itself from the home indicator (34pt on a Face ID iPhone) -->
+        <Style x:Key="BottomBar" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Padding" Value="8,8,8,34" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid SafeAreaEdges="Container,Container,Container,None"
+          RowDefinitions="Auto,*"
+          ColumnDefinitions="*,*"
+          ColumnSpacing="4">
+
+        <VerticalStackLayout Grid.ColumnSpan="2" Padding="16" Spacing="6" BackgroundColor="White">
+            <Label Text="SfTabView and the bottom safe area" FontSize="18" FontAttributes="Bold" />
+            <Label Text="Both columns should reach the bottom edge. Red below a column means its content stopped short." />
+            <Label Text="Left: inside SfTabView.  Right: no SfTabView." FontAttributes="Bold" />
+        </VerticalStackLayout>
+
+        <!-- SafeAreaEdges="None" here makes no difference -->
+        <tabView:SfTabView Grid.Row="1" TabBarHeight="44" TabBarBackground="White" SafeAreaEdges="None">
+            <tabView:SfTabItem Header="Tab">
+                <tabView:SfTabItem.Content>
+                    <Grid SafeAreaEdges="None" RowDefinitions="*,Auto" BackgroundColor="LightGreen">
+                        <Label Text="Inside SfTabView" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Border Grid.Row="1" Style="{StaticResource BottomBar}">
+                            <Button Text="Bar" />
+                        </Border>
+                    </Grid>
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+        </tabView:SfTabView>
+
+        <Grid Grid.Row="1" Grid.Column="1" SafeAreaEdges="None" RowDefinitions="44,*,Auto" BackgroundColor="LightGreen">
+            <Label Text="No SfTabView" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="1" Text="Same content" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Border Grid.Row="2" Style="{StaticResource BottomBar}">
+                <Button Text="Bar" />
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
